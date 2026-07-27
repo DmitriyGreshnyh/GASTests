@@ -24,6 +24,26 @@ void ASCharacterBase::BeginPlay()
 	
 }
 
+void ASCharacterBase::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+}
+
+void ASCharacterBase::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	if (AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+}
+
 // Called every frame
 void ASCharacterBase::Tick(float DeltaTime)
 {

@@ -8,10 +8,8 @@
 #include "AbilitySystemComponent.h"
 #include "SCharacterBase.generated.h"
 
-class UAbilitySystemComponent;
-
 UCLASS()
-class GASTESTS_API ASCharacterBase : public ACharacter, IAbilitySystemInterface
+class GASTESTS_API ASCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -29,6 +27,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AbilitySystem")
 	EGameplayEffectReplicationMode ASCReplicationMode = EGameplayEffectReplicationMode::Mixed;
+
+	// For AI then it possesd Pawn
+	virtual void PossessedBy(AController* NewController) override;
+	// For Player then it join the server
+	virtual void OnRep_PlayerState() override;
 
 public:	
 	// Called every frame
