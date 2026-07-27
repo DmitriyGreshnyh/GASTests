@@ -2,6 +2,7 @@
 
 
 #include "GameplayAbilitySystem/Characters/SCharacterBase.h"
+#include "GameplayAbilitySystem/AttributesSets/SBasicAttributeSet.h"
 #include "AbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -13,7 +14,7 @@ ASCharacterBase::ASCharacterBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Add ability system component
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(ASCReplicationMode);
 
@@ -35,6 +36,9 @@ ASCharacterBase::ASCharacterBase()
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
+
+	// Add the basic attribute set
+	BasicAttributeSet = CreateDefaultSubobject<USBasicAttributeSet>(TEXT("BasicAttributeSet"));
 }
 
 // Called when the game starts or when spawned
