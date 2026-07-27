@@ -2,12 +2,18 @@
 
 
 #include "SCharacterBase.h"
+#include "AbilitySystemComponent.h"
 
 // Sets default values
 ASCharacterBase::ASCharacterBase()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Add ability system component
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(ASCReplicationMode);
 
 }
 
