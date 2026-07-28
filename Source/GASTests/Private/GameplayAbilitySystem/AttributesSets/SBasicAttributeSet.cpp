@@ -3,6 +3,7 @@
 
 #include "GameplayAbilitySystem/AttributesSets/SBasicAttributeSet.h"
 #include "Net/UnrealNetwork.h"
+#include "GameplayEffectExtension.h"
 
 USBasicAttributeSet::USBasicAttributeSet()
 {
@@ -20,4 +21,33 @@ void USBasicAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimePrope
 	DOREPLIFETIME_CONDITION_NOTIFY(USBasicAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(USBasicAttributeSet, Stamina, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(USBasicAttributeSet, MaxStamina, COND_None, REPNOTIFY_Always);
+}
+
+void USBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) // Clamp of attribute values changed
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	if (Attribute == GetHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0, GetMaxHealth());
+	}
+	else if (Attribute == GetStaminaAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0, GetMaxStamina());
+	}
+
+}
+
+void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) // Clamp of attributes changed by EffectExecution
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(GetHealth()); // it will call PreAttributeChange that will clamp Attribute values for us
+	}
+	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
+	{
+		SetStamina(GetStamina());
+	}
 }
