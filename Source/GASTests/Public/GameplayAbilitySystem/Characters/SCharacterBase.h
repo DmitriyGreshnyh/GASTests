@@ -32,7 +32,14 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AbilitySystem")
 	EGameplayEffectReplicationMode ASCReplicationMode = EGameplayEffectReplicationMode::Mixed;
 
-	// For AI then it possesd Pawn
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AbilitySystem")
+	TArray<TSubclassOf<UGameplayAbility>> StartingAbilities;
+
+	// For AI then it possesd Pawn and for player character on a server
+	/**
+	 * Called when this Pawn is possessed. Only called on the server (or in standalone).
+	 * @param NewController The controller possessing this pawn
+	 */
 	virtual void PossessedBy(AController* NewController) override;
 	// For Player then it join the server
 	virtual void OnRep_PlayerState() override;

@@ -55,6 +55,8 @@ void ASCharacterBase::PossessedBy(AController* NewController)
 	if (AbilitySystemComponent)
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+		GrantAbilities(StartingAbilities);
 	}
 }
 
