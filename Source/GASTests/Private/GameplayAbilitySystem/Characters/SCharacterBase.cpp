@@ -98,6 +98,8 @@ TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubcl
 		AbilityHandles.Add(SpecHandle);
 	}
 
+	SendAbilitiesChangedEvent();
+
 	return AbilityHandles;
 }
 
@@ -110,5 +112,17 @@ void ASCharacterBase::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> Ability
 	{
 		AbilitySystemComponent->ClearAbility(AbilityHandle);
 	}
+
+	SendAbilitiesChangedEvent();
+}
+
+void ASCharacterBase::SendAbilitiesChangedEvent()
+{
+	FGameplayEventData EventData;
+	EventData.EventTag = FGameplayTag::RequestGameplayTag(FName("Event.Abilities.Changed"));
+	EventData.Instigator = this;
+	EventData.Target = this;
+
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, EventData.EventTag, EventData);
 }
 
