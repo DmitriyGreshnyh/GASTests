@@ -13,6 +13,10 @@ UCLASS()
 class GASTESTS_API USAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
+
+protected:
+
+	TArray<FGameplayAbilitySpec> LastActivatableAbilities;
 	
 protected:
 
