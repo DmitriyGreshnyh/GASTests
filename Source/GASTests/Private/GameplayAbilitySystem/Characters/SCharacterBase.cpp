@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "SAbilitySystemComponent.h"
 
 // Sets default values
 ASCharacterBase::ASCharacterBase()
@@ -14,7 +15,7 @@ ASCharacterBase::ASCharacterBase()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Add ability system component
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+	AbilitySystemComponent = CreateDefaultSubobject<USAbilitySystemComponent>(TEXT("ASbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(ASCReplicationMode);
 
