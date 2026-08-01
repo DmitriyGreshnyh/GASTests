@@ -120,7 +120,7 @@ void ASCharacterBase::RemoveAbilities(TArray<FGameplayAbilitySpecHandle> Ability
 void ASCharacterBase::SendAbilitiesChangedEvent()
 {
 	FGameplayEventData EventData;
-	EventData.EventTag = FGameplayTag::RequestGameplayTag(FName("Event.Abilities.Changed"));
+	EventData.EventTag = FGameplayTag::RequestGameplayTag(FName("Events.Abilities.Changed")); // TODO: Remove hardcoded tag
 	EventData.Instigator = this;
 	EventData.Target = this;
 
