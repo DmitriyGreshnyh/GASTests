@@ -17,6 +17,11 @@ class GASTESTS_API USGameplayAbility : public UGameplayAbility
 
 public:
 
+	USGameplayAbility();
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShouldShowInAbilitiesBar = false;
+
+
 };
