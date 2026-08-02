@@ -127,3 +127,8 @@ void ASCharacterBase::SendAbilitiesChangedEvent()
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, EventData.EventTag, EventData);
 }
 
+void ASCharacterBase::ServerSendGameplayEventToSelf_Implementation(FGameplayEventData EventData)
+{
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(this, EventData.EventTag, EventData);
+}
+
