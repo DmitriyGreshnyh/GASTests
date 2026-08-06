@@ -44,6 +44,12 @@ protected:
 	// For Player then it join the server
 	virtual void OnRep_PlayerState() override;
 
+	UFUNCTION()
+	virtual void OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Damage")
+	void HandleDeath();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

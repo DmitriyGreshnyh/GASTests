@@ -7,6 +7,8 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "SAbilitySystemComponent.h"
+#include "../../Engine/Classes/GameFramework/Character.h"
+#include "../../Engine/Classes/GameFramework/Actor.h"
 
 // Sets default values
 ASCharacterBase::ASCharacterBase()
@@ -47,6 +49,8 @@ void ASCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Subscribe on State.Death tag added to character
+	AbilitySystemComponent->RegisterGameplayTagEvent(FGameplayTag::RequestGameplayTag("State.Death")).AddUObject(this, &ASCharacterBase::OnDeadTagChanged);
 }
 
 void ASCharacterBase::PossessedBy(AController* NewController)
@@ -69,6 +73,27 @@ void ASCharacterBase::OnRep_PlayerState()
 	{
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	}
+}
+
+void ASCharacterBase::OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if (NewCount > 0)
+	{
+		HandleDeath();
+	}
+}
+
+void ASCharacterBase::HandleDeath_Implementation()
+{
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCharacterMovement()->DisableMovement();
+
+	// Impulse
+	FVector Impulse = GetActorForwardVector() * -10000;
+	Impulse.Z = 15000;
+	GetMesh()->AddImpulseAtLocation(Impulse, GetActorLocation());
 }
 
 // Called every frame
