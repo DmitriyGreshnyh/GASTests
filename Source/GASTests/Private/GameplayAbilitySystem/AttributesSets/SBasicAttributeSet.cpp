@@ -58,3 +58,16 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		SetStamina(GetStamina());
 	}
 }
+
+void USBasicAttributeSet::PostAttributeChange(const FGameplayAttribute& Attribute, float OldValue, float NewValue)
+{
+	Super::PostAttributeChange(Attribute, OldValue, NewValue);
+
+	if (Attribute == GetHealthAttribute() && NewValue <= 0.f)
+	{
+		FGameplayTagContainer DeathAbilityTagContainer;
+		DeathAbilityTagContainer.AddTag(FGameplayTag::RequestGameplayTag("GameplayAbility.Death"));
+		GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(DeathAbilityTagContainer);
+	}
+
+}
