@@ -6,4 +6,5 @@
 USGameplayAbility::USGameplayAbility()
 {
 	ActivationOwnedTags.AddTag(FGameplayTag::RequestGameplayTag(FName("GameplayAbility.Active")));
+	ActivationBlockedTags.AddTag(FGameplayTag::RequestGameplayTag("State.Death"));
 }
