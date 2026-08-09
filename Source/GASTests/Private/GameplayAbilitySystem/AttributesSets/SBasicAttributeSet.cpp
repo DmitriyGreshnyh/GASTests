@@ -55,7 +55,22 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		float TotalDamage = GetDamage();
 		SetDamage(0.f);
 
-		SetHealth(GetHealth() - TotalDamage);
+		float CurrentShield = GetShield();
+		if (CurrentShield > 0.0f)
+		{
+			SetShield(GetHealth() - TotalDamage);
+			float RemainingDamage = TotalDamage - CurrentShield;
+
+			if (RemainingDamage > 0.0f)
+			{
+				SetHealth(RemainingDamage);
+			}
+		}
+		else
+		{
+			SetHealth(GetHealth() - TotalDamage);
+		}
+				
 
 		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag("Effects.HitReaction")) && Data.EvaluatedData.Magnitude != 0.f) // If GameplayEffect has tag we notifying about damage
 		{
