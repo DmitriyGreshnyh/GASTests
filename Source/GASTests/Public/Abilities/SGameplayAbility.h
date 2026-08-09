@@ -23,5 +23,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShouldShowInAbilitiesBar = false;
 
-
+	UFUNCTION(BlueprintCallable)
+	bool IsControlledByPlayer() const;
 };
