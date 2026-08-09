@@ -37,6 +37,10 @@ public:
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, MaxStamina); 
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Damage; // temporary damage what will spread between attributes 
+	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, Damage);
+
 public:
 
 	UFUNCTION()

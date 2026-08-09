@@ -11,6 +11,7 @@ USBasicAttributeSet::USBasicAttributeSet()
 	MaxHealth = 100.f;
 	Stamina = 100.f;
 	MaxStamina = 100.f;
+	Damage = 0.0f;
 }
 
 void USBasicAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
@@ -42,9 +43,12 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 {
 	Super::PostGameplayEffectExecute(Data);
 
-	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	if (Data.EvaluatedData.Attribute == GetDamageAttribute())
 	{
-		SetHealth(GetHealth()); // it will call PreAttributeChange that will clamp Attribute values for us
+		float TotalDamage = GetDamage();
+		SetDamage(0.f);
+
+		SetHealth(GetHealth() - TotalDamage);
 
 		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag("Effects.HitReaction")) && Data.EvaluatedData.Magnitude != 0.f) // If GameplayEffect has tag we notifying about damage
 		{
@@ -52,6 +56,13 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 			HitReactionTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("GameplayAbility.HitReaction")));
 			GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(HitReactionTagContainer);
 		}
+	}
+
+
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(GetHealth()); // it will call PreAttributeChange that will clamp Attribute values for us
 	}
 	else if (Data.EvaluatedData.Attribute == GetStaminaAttribute())
 	{
