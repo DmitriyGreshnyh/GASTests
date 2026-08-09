@@ -12,6 +12,8 @@ USBasicAttributeSet::USBasicAttributeSet()
 	Stamina = 100.f;
 	MaxStamina = 100.f;
 	Damage = 0.0f;
+	Shield = 0.0f;
+	MaxShield = 100.0f;
 }
 
 void USBasicAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const

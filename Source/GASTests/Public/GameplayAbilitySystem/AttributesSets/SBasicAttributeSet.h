@@ -41,6 +41,15 @@ public:
 	FGameplayAttributeData Damage; // temporary damage what will spread between attributes 
 	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, Damage);
 
+	// Shield Attribute
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing=OnRep_Shield)
+	FGameplayAttributeData Shield;
+	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, Shield); // This Macro give as getters and setters for Attributes
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes", ReplicatedUsing=OnRep_MaxShield)
+	FGameplayAttributeData MaxShield;
+	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, MaxShield);
+
 public:
 
 	UFUNCTION()
@@ -65,6 +74,18 @@ public:
 	void OnRep_MaxStamina(const FGameplayAttributeData OldValue) const
 	{
 		GAMEPLAYATTRIBUTE_REPNOTIFY(USBasicAttributeSet, MaxStamina, OldValue);
+	}
+
+	UFUNCTION()
+	void OnRep_Shield(const FGameplayAttributeData OldValue) const
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(USBasicAttributeSet, Shield, OldValue);
+	}
+
+	UFUNCTION()
+	void OnRep_MaxShield(const FGameplayAttributeData OldValue) const
+	{
+		GAMEPLAYATTRIBUTE_REPNOTIFY(USBasicAttributeSet, MaxShield, OldValue);
 	}
 	
 
