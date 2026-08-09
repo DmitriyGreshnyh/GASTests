@@ -58,7 +58,7 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		float CurrentShield = GetShield();
 		if (CurrentShield > 0.0f)
 		{
-			SetShield(GetHealth() - TotalDamage);
+			SetShield(GetShield() - TotalDamage);
 			float RemainingDamage = TotalDamage - CurrentShield;
 
 			if (RemainingDamage > 0.0f)
