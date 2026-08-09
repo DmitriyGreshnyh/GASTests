@@ -46,7 +46,7 @@ void USBasicAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 	{
 		SetHealth(GetHealth()); // it will call PreAttributeChange that will clamp Attribute values for us
 
-		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag("Effects.HitReaction"))) // If GameplayEffect has tag we notifying about damage
+		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag("Effects.HitReaction")) && Data.EvaluatedData.Magnitude != 0.f) // If GameplayEffect has tag we notifying about damage
 		{
 			FGameplayTagContainer HitReactionTagContainer;
 			HitReactionTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("GameplayAbility.HitReaction")));
