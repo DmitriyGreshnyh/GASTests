@@ -38,6 +38,11 @@ void USBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute
 	{
 		NewValue = FMath::Clamp(NewValue, 0, GetMaxStamina());
 	}
+	else if (Attribute == GetShieldAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0, GetMaxShield());
+	}
+
 
 }
 
