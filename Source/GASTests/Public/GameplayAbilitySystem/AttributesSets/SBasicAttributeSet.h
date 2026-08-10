@@ -37,6 +37,7 @@ public:
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, MaxStamina); 
 
+	// Damage
 	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Damage; // temporary damage what will spread between attributes 
 	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, Damage);
@@ -50,7 +51,7 @@ public:
 	FGameplayAttributeData MaxShield;
 	ATTRIBUTE_ACCESSORS_BASIC(USBasicAttributeSet, MaxShield);
 
-public:
+protected:
 
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData OldValue) const
