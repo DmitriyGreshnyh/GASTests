@@ -9,6 +9,7 @@
 #include "SCharacterBase.generated.h"
 
 class USBasicAttributeSet;
+class USCombatAttributeSet;
 
 UCLASS()
 class GASTESTS_API ASCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -24,6 +25,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	USBasicAttributeSet* BasicAttributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
+	USCombatAttributeSet* CombatAttributeSet;
 
 protected:
 	// Called when the game starts or when spawned

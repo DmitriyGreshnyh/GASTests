@@ -9,6 +9,7 @@
 #include "SAbilitySystemComponent.h"
 #include "../../Engine/Classes/GameFramework/Character.h"
 #include "../../Engine/Classes/GameFramework/Actor.h"
+#include "SCombatAttributeSet.h"
 
 // Sets default values
 ASCharacterBase::ASCharacterBase()
@@ -42,6 +43,9 @@ ASCharacterBase::ASCharacterBase()
 
 	// Add the basic attribute set
 	BasicAttributeSet = CreateDefaultSubobject<USBasicAttributeSet>(TEXT("BasicAttributeSet"));
+
+	// Add Combat attribute set
+	CombatAttributeSet = CreateDefaultSubobject<USCombatAttributeSet>(TEXT("CombatAttributeSet"));
 }
 
 // Called when the game starts or when spawned
