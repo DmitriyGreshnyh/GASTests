@@ -7,7 +7,6 @@
 #include "SGameplayAbility.generated.h"
 
 UENUM(BlueprintType)
-enum EAbilityInputID : uint8
 enum class EAbilityInputID : uint8
 {
 	None UMETA(DisplayName = "None"),
@@ -33,6 +32,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShouldShowInAbilitiesBar = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	EAbilityInputID AbilityInputID = EAbilityInputID::None;
 
 	UFUNCTION(BlueprintCallable)
 	bool IsControlledByPlayer() const;
