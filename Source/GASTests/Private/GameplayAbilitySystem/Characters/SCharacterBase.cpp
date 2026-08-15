@@ -10,6 +10,7 @@
 #include "../../Engine/Classes/GameFramework/Character.h"
 #include "../../Engine/Classes/GameFramework/Actor.h"
 #include "SCombatAttributeSet.h"
+#include "Abilities/SGameplayAbility.h"
 
 // Sets default values
 ASCharacterBase::ASCharacterBase()
@@ -123,7 +124,15 @@ TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubcl
 
 	for (TSubclassOf<UGameplayAbility> Ability : AbilitiesToGrant)
 	{
-		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, -1, this));
+
+		int32 InputID = -1;
+		if (const USGameplayAbility* SAbilityCDO = GetDefault<USGameplayAbility>(Ability)) // Get default values of class CDO - Class default object
+		{
+			InputID = static_cast<int32>(SAbilityCDO->AbilityInputID);
+		}
+
+
+		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, InputID, this));
 
 		AbilityHandles.Add(SpecHandle);
 	}
