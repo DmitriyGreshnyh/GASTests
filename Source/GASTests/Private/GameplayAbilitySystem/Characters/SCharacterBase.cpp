@@ -115,7 +115,7 @@ void ASCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant)
+TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant) 
 {
 	// Only Server must grant Abilities
 	if (!AbilitySystemComponent || !HasAuthority()) return TArray<FGameplayAbilitySpecHandle>();
@@ -126,15 +126,23 @@ TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubcl
 	{
 
 		int32 InputID = -1;
+		bool ShoudActivate = false;
 		if (const USGameplayAbility* SAbilityCDO = GetDefault<USGameplayAbility>(Ability)) // Get default values of class CDO - Class default object
 		{
 			InputID = static_cast<int32>(SAbilityCDO->AbilityInputID);
+			ShoudActivate = SAbilityCDO->AutoActivateOnGranted;
 		}
 
 
 		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, InputID, this));
 
 		AbilityHandles.Add(SpecHandle);
+
+		// Activate ability if needed
+		if (ShoudActivate)
+		{
+			AbilitySystemComponent->TryActivateAbility(SpecHandle);
+		}
 	}
 
 	SendAbilitiesChangedEvent();
