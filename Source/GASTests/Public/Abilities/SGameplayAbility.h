@@ -8,6 +8,7 @@
 
 UENUM(BlueprintType)
 enum EAbilityInputID : uint8
+enum class EAbilityInputID : uint8
 {
 	None UMETA(DisplayName = "None"),
 	PrimaryAbility UMETA(DisplayName= "PrimaryAbility"),
