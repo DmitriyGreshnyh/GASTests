@@ -115,7 +115,7 @@ void ASCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
 }
 
-TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant) 
+TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubclassOf<UGameplayAbility>> AbilitiesToGrant, int32 Level) 
 {
 	// Only Server must grant Abilities
 	if (!AbilitySystemComponent || !HasAuthority()) return TArray<FGameplayAbilitySpecHandle>();
@@ -134,7 +134,7 @@ TArray<FGameplayAbilitySpecHandle> ASCharacterBase::GrantAbilities(TArray<TSubcl
 		}
 
 
-		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, InputID, this));
+		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, Level, InputID, this));
 
 		AbilityHandles.Add(SpecHandle);
 
