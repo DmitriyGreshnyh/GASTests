@@ -17,3 +17,11 @@ bool USGameplayAbility::IsControlledByPlayer() const
 
 	return PawnObject->IsPlayerControlled();
 }
+
+void USGameplayAbility::SetAbilityLevel(int32 NewLevel)
+{
+	if(FGameplayAbilitySpec* AbilitySpec = GetCurrentAbilitySpec())
+	{
+		AbilitySpec->Level = NewLevel;
+	}
+}

@@ -41,4 +41,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool IsControlledByPlayer() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	void SetAbilityLevel(int32 NewLevel);
 };
