@@ -2,6 +2,8 @@
 
 
 #include "Abilities/SGameplayAbility.h"
+#include "Abilities/GameplayAbility.h"
+#include "AbilitySystemComponent.h"
 
 USGameplayAbility::USGameplayAbility()
 {
@@ -20,7 +22,8 @@ bool USGameplayAbility::IsControlledByPlayer() const
 
 void USGameplayAbility::SetAbilityLevel(int32 NewLevel)
 {
-	if(FGameplayAbilitySpec* AbilitySpec = GetCurrentAbilitySpec())
+	//if(FGameplayAbilitySpec* AbilitySpec = GetAbilitySystemComponentFromActorInfo()->FindAbilitySpecFromHandle(GetCurrentAbilitySpecHandle())) 
+	if (FGameplayAbilitySpec* AbilitySpec = GetCurrentAbilitySpec())
 	{
 		AbilitySpec->Level = NewLevel;
 	}
